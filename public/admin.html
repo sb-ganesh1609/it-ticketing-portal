@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+  <header class="bg-slate-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <h1 class="text-xl font-bold">IT Staff Dashboard</h1>
+      </div>
+      <a href="/" class="text-sm bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">End-User Portal</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <p class="text-sm text-gray-500 font-medium">Total Tickets</p>
+        <p id="stat-total" class="text-3xl font-bold text-gray-900 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <p class="text-sm text-yellow-600 font-medium">Open</p>
+        <p id="stat-open" class="text-3xl font-bold text-yellow-600 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <p class="text-sm text-blue-600 font-medium">In Progress</p>
+        <p id="stat-progress" class="text-3xl font-bold text-blue-600 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <p class="text-sm text-green-600 font-medium">Resolved</p>
+        <p id="stat-resolved" class="text-3xl font-bold text-green-600 mt-1">0</p>
+      </div>
+    </div>
+
+    <!-- Controls / Filters -->
+    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex flex-wrap gap-4 items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase mr-2">Status:</label>
+          <select id="filterStatus" onchange="loadAdminTickets()" class="border rounded-md px-3 py-1.5 text-sm bg-gray-50">
+            <option value="">All</option>
+            <option value="Open">Open</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-500 uppercase mr-2">Category:</label>
+          <select id="filterCategory" onchange="loadAdminTickets()" class="border rounded-md px-3 py-1.5 text-sm bg-gray-50">
+            <option value="">All</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Network">Network</option>
+            <option value="Access">Access</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="loadAdminTickets()" class="text-sm bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium text-gray-700">Refresh</button>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-gray-50 border-b border-gray-200 text-gray-600 font-semibold uppercase text-xs">
+          <tr>
+            <th class="py-3 px-4">Ticket ID</th>
+            <th class="py-3 px-4">Subject</th>
+            <th class="py-3 px-4">Requester</th>
+            <th class="py-3 px-4">Category</th>
+            <th class="py-3 px-4">Priority</th>
+            <th class="py-3 px-4">Status</th>
+            <th class="py-3 px-4">Date</th>
+            <th class="py-3 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminTicketList" class="divide-y divide-gray-100">
+          <tr>
+            <td colspan="8" class="text-center py-6 text-gray-500">Loading tickets...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', loadAdminTickets);
+  </script>
+</body>
+</html>
